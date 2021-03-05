@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
     <name>Java sorting algorithms</name>
 
-    <version>2.0.1</version>
+    <version>2.1.0</version>
 
     <properties>
         <java.version>11</java.version>
@@ -25,6 +25,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.18</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -55,7 +61,7 @@
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <artifactId>mockito-core</artifactId>
             <version>1.10.19</version>
             <scope>test</scope>
         </dependency>

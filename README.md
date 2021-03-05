@@ -9,25 +9,77 @@
 
 The console application shows performance of various sorting algorithms like Bubble Sort, Quick Sort etc.
 
-**This is the old project which needs more attention. Algorithms require refactoring and it will be done in the future. Please do not treat
-it as the final version of this project.**
+YouTube video: <https://www.youtube.com/watch?v=nrs-DjTRwkk>
+
+**THIS IS THE OLD PROJECT WHICH NEEDS MORE ATTENTION. ALGORITHMS REQUIRE REFACTORING AND IT WILL BE DONE IN THE FUTURE. PLEASE DO NOT TREAT
+IT AS THE FINAL VERSION OF THIS PROJECT.**
+
+## Java main class
+
+```
+SortingAlgorithmsAppLauncher
+```
 
 ## Technology stack
 
 - Maven
-- Java 11 (AWS Coretto)
+- Java 11 (AWS Corretto)
+- Lombok
 - vavr
   - https://github.com/vavr-io/vavr
-- Testing
-  - JUnit 5
-  - Mockito 1.9.5
 - SonarCloud
   - https://sonarcloud.io/
   - https://sonarcloud.io/organizations/showmeyourcodeyoutube/projects
+- JUnit 5
+- Mockito 1.9.5
 
-## Design patterns
+## Roadmap
 
-- Factory
+- Implement properly sorting algorithms
+- Do the benchmark
 
-## Todo
-- Use functional approach, rewrite the algorithm implementations
+## Algorithms benchmark
+
+| Algorithm (time/memory) | 10000 elements | 50000 elements | 100000 elements | Best complexity | Average complexity | Worst complexity | Best complexity | Space complexity | Stable |
+|-------------------------|----------------|----------------|-----------------|-----------------|--------------------|------------------|-----------------|------------------|--------|
+| Bubble sort             | ?/?          |  ?/?          | ?/?          |                 |                    |                  |                 |                  |        |
+| Counting sort           |  ?/?          |  ?/?             | ?/?              |                 |                    |                  |                 |                  |        |
+| Heap sort               |  ?/?        |  ?/?          | ?/?              |                 |                    |                  |                 |                  |        |
+| Insert sort             |  ?/?           |  ?/?             | ?/?              |                 |                    |                  |                 |                  |        |
+| Merge sort              |  ?/?           |  ?/?            | ?/?              |                 |                    |                  |                 |                  |        |
+| Quick sort              |  ?/?           |  ?/?            |  ?/?             |                 |                    |                  |                 |                  |        |
+| Selection sort          |  ?/?          |  ?/?           |  ?/?             |                 |                    |                  |                 |                  |        |
+| Shaker sort             |  ?/?           |  ?/?             |  ?/?           |                 |                    |                  |                 |                  |        |
+| Shell sort              |  ?/?           |  ?/?             |  ?/?            |                 |                    |                  |                 |                  |        |
+
+Stable - A sorting algorithm is said to be stable if two objects with equal keys appear in the same order in sorted output as they appear in
+the input array to be sorted.
+
+Time is measured in milliseconds.
+
+Table generated using: <https://www.tablesgenerator.com/markdown_tables#>
+
+### Space complexity
+
+explain
+
+### Best/Average/Worst complexity
+
+explain
+
+## Test naming convention
+
+````
+Should_ExpectedBehavior_When_StateUnderTest
+````
+
+Examples:
+
+- Should_ThrowException_When_AgeLessThan18
+- Should_FailToWithdrawMoney_ForInvalidAccount
+- Should_FailToAdmit_IfMandatoryFieldsAreMissing
+
+Remember about:
+
+- using `IT` suffix for integration tests
+- using`Test` suffix for unit tests
