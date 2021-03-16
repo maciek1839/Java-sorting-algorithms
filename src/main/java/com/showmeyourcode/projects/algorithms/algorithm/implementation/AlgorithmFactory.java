@@ -26,16 +26,16 @@ public class AlgorithmFactory implements AbstractAlgorithmFactory {
                 return new CountingSort(dataGenerator);
             case HEAP_SORT:
                 return new HeapSort(dataGenerator);
-            case INSERT_SORT:
-                return new InsertSort(dataGenerator);
+            case INSERTION_SORT:
+                return new InsertionSort(dataGenerator);
             case MERGE_SORT:
                 return new MergeSort(dataGenerator);
             case QUICK_SORT:
                 return new QuickSort(dataGenerator);
             case SELECTION_SORT:
                 return new SelectionSort(dataGenerator);
-            case SHAKER_SORT:
-                return new ShakerSort(dataGenerator);
+            case COCKTAIL_SHAKER_SORT:
+                return new CocktailShakerSort(dataGenerator);
             case SHELL_SORT:
                 return new ShellSort(dataGenerator);
             default:

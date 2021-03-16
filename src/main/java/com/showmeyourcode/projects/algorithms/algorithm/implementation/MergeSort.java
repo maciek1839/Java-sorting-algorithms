@@ -3,36 +3,22 @@ package com.showmeyourcode.projects.algorithms.algorithm.implementation;
 import com.showmeyourcode.projects.algorithms.algorithm.AlgorithmDataGenerator;
 import com.showmeyourcode.projects.algorithms.algorithm.AlgorithmType;
 
+// todo: check implementation
 public class MergeSort extends AlgorithmBase {
+
     MergeSort(AlgorithmDataGenerator dataGenerator) {
         super(dataGenerator);
     }
 
     @Override
-    public String getAlgorithmPerformance() {
-        return "O(N*LOG N)";
-    }
-
-    /*
-    PSEUDOCODE
-        more on the Internet
-
-    PERFORMANCE
-       Worst-case performance O(n log n)
-       Best-case performance  O(n log n)
-       Worst-case space complexity O(n)
-
-     */
-
-    @Override
-    public int[] sortData(int[] data) {
-        if (data == null || data.length == 0) {
+    public int[] sortData(int[] inputArray) {
+        if (isArrayEmpty(inputArray)) {
             return new int[]{};
         }
 
-        for (int i_partSize = 1; i_partSize < data.length; i_partSize = i_partSize * 2)
-            data = mergeParts(data, i_partSize);
-        return data;
+        for (int i_partSize = 1; i_partSize < inputArray.length; i_partSize = i_partSize * 2)
+            inputArray = mergeParts(inputArray, i_partSize);
+        return inputArray;
     }
 
     @Override
@@ -71,6 +57,6 @@ public class MergeSort extends AlgorithmBase {
 
     @Override
     public String toString() {
-        return "Merge sort ";
+        return "Merge sort";
     }
 }

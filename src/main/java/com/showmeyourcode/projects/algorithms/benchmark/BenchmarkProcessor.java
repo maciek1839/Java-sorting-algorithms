@@ -4,6 +4,8 @@ import com.showmeyourcode.projects.algorithms.algorithm.AbstractAlgorithmFactory
 import com.showmeyourcode.projects.algorithms.algorithm.Algorithm;
 import com.showmeyourcode.projects.algorithms.algorithm.implementation.AlgorithmFactory;
 import com.showmeyourcode.projects.algorithms.configuration.SortingAppConfiguration;
+import com.showmeyourcode.projects.algorithms.exception.BenchmarkDataNotFoundException;
+import com.showmeyourcode.projects.algorithms.exception.CannotCreateReportResultsFileException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +14,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -35,19 +36,31 @@ public class BenchmarkProcessor {
         final AbstractAlgorithmFactory algorithmFactory = new AlgorithmFactory(appConfiguration);
         List<BenchmarkResult> tmpResults = new ArrayList<>();
         var allAlgorithms = algorithmFactory.creatAllAvailableAlgorithms();
-        for (BenchmarkData benchmarkData : BenchmarkData.values()) {
+        for (AlgorithmsBenchmarkData benchmarkData : AlgorithmsBenchmarkData.values()) {
             logger.info("Preparing benchmark for {} elements...", benchmarkData.getSize());
             try {
                 final int[] initialData = dataGenerator.loadData(benchmarkData);
                 for (Algorithm algorithm : allAlgorithms) {
                     logger.debug("Processing {} {}", benchmarkData.getSize(), algorithm.toString());
-                    Instant start = Instant.now();
+                    final long memoryAtTheBeginning = getCurrentUsedMemoryInBytes();
+                    logger.debug("Memory at the beginning: {}", memoryAtTheBeginning);
+                    Long start = System.nanoTime();
                     algorithm.sortData(initialData);
-                    Instant finish = Instant.now();
-                    long timeElapsed = Duration.between(start, finish).toMillis();
-                    tmpResults.add(new BenchmarkResult(algorithm.getType(), benchmarkData.getSize(), timeElapsed));
+                    Long finish = System.nanoTime();
+                    long elapsedNanos = finish - start;
+                    final long memoryAtTheEnd = getCurrentUsedMemoryInBytes();
+                    logger.debug("Memory at the end: {}", memoryAtTheEnd);
+                    tmpResults.add(
+                            new BenchmarkResult(
+                                    algorithm.getType(),
+                                    benchmarkData.getSize(),
+                                    elapsedNanos,
+                                    memoryAtTheBeginning,
+                                    memoryAtTheEnd
+                            )
+                    );
                 }
-            } catch (IOException e) {
+            } catch (IOException | BenchmarkDataNotFoundException e) {
                 logger.error("Cannot load data for benchmark from the path: {}", benchmarkData.getPath(), e);
             }
         }
@@ -55,19 +68,57 @@ public class BenchmarkProcessor {
         return tmpResults;
     }
 
-    public void saveResults(List<BenchmarkResult> results) {
-        File targetFile = new File("src/main/resources/benchmark/results.txt");
-        try (OutputStream outStream = new FileOutputStream(targetFile)) {
-            DateTimeFormatter formatter =
-                    DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.from(ZoneOffset.UTC));
+    private long getCurrentUsedMemoryInBytes() {
+        return Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+    }
+
+    public void saveResults(List<BenchmarkResult> results) throws CannotCreateReportResultsFileException {
+        final String reportResultFilePath = "src/main/resources/benchmark/results.txt";
+        File benchmarkResults = new File(reportResultFilePath);
+
+        createResultsFile(benchmarkResults);
+
+        try (OutputStream outStream = new FileOutputStream(benchmarkResults)) {
+            final String newLine = "\r\n";
+            final String resultAlgorithmEntry = "Dataset size: %d Algorithm: %s Duration: %d Memory: %d/%d Memory difference: %d %s";
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.from(ZoneOffset.UTC));
+            final StringBuilder contentBuilder = new StringBuilder();
             Instant instant = Instant.now();
-            outStream.write((formatter.format(instant) + "\r\n").getBytes(StandardCharsets.UTF_8));
+            contentBuilder.append(String.format("--------------- Benchmark results %s---------------%s",
+                    formatter.format(instant),
+                    newLine
+            ));
             for (BenchmarkResult partialResult : results) {
                 logger.info(partialResult.toString());
-                outStream.write((partialResult.toString() + "\r\n").getBytes(StandardCharsets.UTF_8));
+                contentBuilder.append(
+                        String.format(
+                                resultAlgorithmEntry,
+                                partialResult.getDatasetSize(),
+                                partialResult.getAlgorithmType(),
+                                partialResult.getTimeElapsedInNanoSeconds(),
+                                partialResult.getMemoryUsedAtTheBeginningInBytes(),
+                                partialResult.getMemoryUsedAtTheEndInBytes(),
+                                partialResult.getMemoryRuntimeDifference(),
+                                newLine
+                        ));
             }
+
+            outStream.write(contentBuilder.toString().getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             logger.error("Cannot write benchmark results! ", e);
+        }
+    }
+
+    private void createResultsFile(File benchmarkResults) throws CannotCreateReportResultsFileException {
+        try {
+            if (benchmarkResults.exists()) {
+                logger.debug("The benchmark results file already exists: {}", benchmarkResults.getPath());
+            } else {
+                benchmarkResults.createNewFile();
+                logger.debug("Created the benchmark results file: {}", benchmarkResults.getPath());
+            }
+        } catch (IOException e) {
+            throw new CannotCreateReportResultsFileException(e);
         }
     }
 }

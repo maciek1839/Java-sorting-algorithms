@@ -10,34 +10,30 @@ public class ShellSort extends AlgorithmBase {
     }
 
     @Override
-    public String getAlgorithmPerformance() {
-        return "UNDEFINED";
-    }
-
-    @Override
-    public int[] sortData(int[] data) {
-        if (data == null || data.length == 0) {
+    public int[] sortData(int[] inputArray) {
+        if (isArrayEmpty(inputArray)) {
             return new int[]{};
         }
-        int valToSwap, iHole = data.length / 2;
-        //start from top to down
-        while (iHole > 0) {
-            for (int j = iHole; j < data.length; j++) {
-                if (data[j] < data[j - iHole]) {
-                    valToSwap = data[j];
-                    data[j] = data[j - iHole];
-                    data[j - iHole] = valToSwap;
-                    for (int i = 0; iHole == 1 && j - iHole - 1 - i >= 0 && data[j - iHole - i] < data[j - iHole - i - 1]; i++) {
-                        valToSwap = data[j - iHole - i];
-                        data[j - iHole - i] = data[j - iHole - i - 1];
-                        data[j - iHole - i - 1] = valToSwap;
+
+        int valToSwap, gap = inputArray.length / 2;
+
+        while (gap > 0) {
+            for (int j = gap; j < inputArray.length; j++) {
+                if (inputArray[j] < inputArray[j - gap]) {
+                    valToSwap = inputArray[j];
+                    inputArray[j] = inputArray[j - gap];
+                    inputArray[j - gap] = valToSwap;
+                    for (int i = 0; gap == 1 && j - gap - 1 - i >= 0 && inputArray[j - gap - i] < inputArray[j - gap - i - 1]; i++) {
+                        valToSwap = inputArray[j - gap - i];
+                        inputArray[j - gap - i] = inputArray[j - gap - i - 1];
+                        inputArray[j - gap - i - 1] = valToSwap;
                     }
                 }
             }
-            iHole = iHole / 2;
+            gap = gap / 2;
         }
 
-        return data;
+        return inputArray;
     }
 
     @Override
@@ -45,16 +41,8 @@ public class ShellSort extends AlgorithmBase {
         return AlgorithmType.SHELL_SORT;
     }
 
-    /*
-    PSEUDOCODE
-        more on the Internet
-
-    PERFORMANCE
-        depends on paramatere i_hole
-        Stability? Yes
-     */
     @Override
     public String toString() {
-        return "Shell Sort ";
+        return "Shell Sort";
     }
 }

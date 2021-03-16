@@ -3,6 +3,7 @@ package com.showmeyourcode.projects.algorithms.algorithm.implementation;
 import com.showmeyourcode.projects.algorithms.algorithm.AlgorithmDataGenerator;
 import com.showmeyourcode.projects.algorithms.algorithm.AlgorithmType;
 
+//todo: check implementation
 public class QuickSort extends AlgorithmBase {
 
     QuickSort(AlgorithmDataGenerator dataGenerator) {
@@ -10,33 +11,19 @@ public class QuickSort extends AlgorithmBase {
     }
 
     @Override
-    public String getAlgorithmPerformance() {
-        return "O(N*LOG N)/O(N^2)";
-    }
-
-    /*
-    PSEUDOCODE
-        more on the Internet
-
-    PERFORMANCE
-       Worst-case performance O(n^2)
-       Best-case performance  O(n log n)
-       Worst-case space complexity O(1)
-     */
-    @Override
     public String toString() {
-        return "Quick sort ";
+        return "Quick sort";
     }
 
     @Override
-    public int[] sortData(int[] data) {
-        if (data == null || data.length == 0) {
+    public int[] sortData(int[] arrayToSort) {
+        if (isArrayEmpty(arrayToSort)) {
             return new int[]{};
         }
 
-        sortWithPivot(data, 0, data.length - 1);
+        sortWithPivot(arrayToSort, 0, arrayToSort.length - 1);
 
-        return data;
+        return arrayToSort;
     }
 
     @Override

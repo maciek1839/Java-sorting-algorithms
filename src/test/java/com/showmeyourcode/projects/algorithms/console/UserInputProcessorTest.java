@@ -24,11 +24,11 @@ class UserInputProcessorTest {
                 Arguments.of(UserMenuChoice.ALGORITHM_1, BubbleSort.class),
                 Arguments.of(UserMenuChoice.ALGORITHM_2, CountingSort.class),
                 Arguments.of(UserMenuChoice.ALGORITHM_3, HeapSort.class),
-                Arguments.of(UserMenuChoice.ALGORITHM_4, InsertSort.class),
+                Arguments.of(UserMenuChoice.ALGORITHM_4, InsertionSort.class),
                 Arguments.of(UserMenuChoice.ALGORITHM_5, MergeSort.class),
                 Arguments.of(UserMenuChoice.ALGORITHM_6, QuickSort.class),
                 Arguments.of(UserMenuChoice.ALGORITHM_7, SelectionSort.class),
-                Arguments.of(UserMenuChoice.ALGORITHM_8, ShakerSort.class),
+                Arguments.of(UserMenuChoice.ALGORITHM_8, CocktailShakerSort.class),
                 Arguments.of(UserMenuChoice.ALGORITHM_9, ShellSort.class)
         );
     }

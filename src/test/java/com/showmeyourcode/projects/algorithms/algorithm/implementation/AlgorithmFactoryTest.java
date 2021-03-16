@@ -23,11 +23,11 @@ class AlgorithmFactoryTest {
                 Arguments.of(AlgorithmType.BUBBLE_SORT, new BubbleSort(StaticValueProvider.getDataGenerator())),
                 Arguments.of(AlgorithmType.COUNTING_SORT, new CountingSort(StaticValueProvider.getDataGenerator())),
                 Arguments.of(AlgorithmType.HEAP_SORT, new HeapSort(StaticValueProvider.getDataGenerator())),
-                Arguments.of(AlgorithmType.INSERT_SORT, new InsertSort(StaticValueProvider.getDataGenerator())),
+                Arguments.of(AlgorithmType.INSERTION_SORT, new InsertionSort(StaticValueProvider.getDataGenerator())),
                 Arguments.of(AlgorithmType.MERGE_SORT, new MergeSort(StaticValueProvider.getDataGenerator())),
                 Arguments.of(AlgorithmType.QUICK_SORT, new QuickSort(StaticValueProvider.getDataGenerator())),
                 Arguments.of(AlgorithmType.SELECTION_SORT, new SelectionSort(StaticValueProvider.getDataGenerator())),
-                Arguments.of(AlgorithmType.SHAKER_SORT, new ShakerSort(StaticValueProvider.getDataGenerator())),
+                Arguments.of(AlgorithmType.COCKTAIL_SHAKER_SORT, new CocktailShakerSort(StaticValueProvider.getDataGenerator())),
                 Arguments.of(AlgorithmType.SHELL_SORT, new ShellSort(StaticValueProvider.getDataGenerator()))
         );
     }

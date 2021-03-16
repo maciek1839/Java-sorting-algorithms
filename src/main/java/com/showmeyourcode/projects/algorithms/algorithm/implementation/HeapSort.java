@@ -3,50 +3,37 @@ package com.showmeyourcode.projects.algorithms.algorithm.implementation;
 import com.showmeyourcode.projects.algorithms.algorithm.AlgorithmDataGenerator;
 import com.showmeyourcode.projects.algorithms.algorithm.AlgorithmType;
 
+/**
+ * todo: change the implementation
+ */
 public class HeapSort extends AlgorithmBase {
-
 
     HeapSort(AlgorithmDataGenerator dataGenerator) {
         super(dataGenerator);
     }
 
     @Override
-    public String getAlgorithmPerformance() {
-        return "O(N*LOG N)";
-    }
-
-    /*
-    PSEUDOCODE
-        more on the Internet
-
-    PERFORMANCE
-       Worst-case performance O(n log n) -> because we iterate through all elements(n) and
-       Best-case performance  O(n log n)
-       Worst-case space complexity: O(1)
-     */
-    @Override
-    public String toString() {
-        return "Heap Sort ";
-    }
-
-    @Override
-    public int[] sortData(int[] data) {
-        if (data == null || data.length == 0) {
+    public int[] sortData(int[] inputArray) {
+        if (isArrayEmpty(inputArray)) {
             return new int[]{};
         }
 
-        //create max heap
-        for (int i = 1; i <= data.length; i++)
-            data = createMaxHeap(data, i);
+        for (int i = 1; i <= inputArray.length; i++)
+            inputArray = createMaxHeap(inputArray, i);
         //strip heap
         int iTmp;
-        for (int i = 0; i < data.length; i++) {
-            iTmp = data[data.length - 1 - i];
-            data[data.length - 1 - i] = data[0];
-            data[0] = iTmp;
-            data = checkChildren(data, 0, data.length - i - 1);
+        for (int i = 0; i < inputArray.length; i++) {
+            iTmp = inputArray[inputArray.length - 1 - i];
+            inputArray[inputArray.length - 1 - i] = inputArray[0];
+            inputArray[0] = iTmp;
+            inputArray = checkChildren(inputArray, 0, inputArray.length - i - 1);
         }
-        return data;
+        return inputArray;
+    }
+
+    @Override
+    public String toString() {
+        return "Heap Sort";
     }
 
     @Override
