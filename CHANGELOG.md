@@ -1,10 +1,14 @@
 # Java sorting algorithms
 
-## 2.3.0 (not yet released)
-
-### Added
+## 2.3.0 (21.03.2021)
 
 ### Changed
+
+- Update benchmark results and verify a few algorithms.
+
+### Fixed
+
+- The benchmark table formatting.
 
 ## 2.2.0 (16.03.2021)
 
@@ -19,7 +23,7 @@
 
 - Change a format of saving benchmark results.
 - Change milliseconds to nanoseconds as a default time execution unit.
-- Refactor part of algorithms: Bubble Sort, Insertion Sort, Counting Sort, Selection Sort.
+- Refactor a part of algorithms: Bubble Sort, Insertion Sort, Counting Sort, Selection Sort.
 
 ## 2.1.0 (05.03.2021)
 
