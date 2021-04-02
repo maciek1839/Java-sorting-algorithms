@@ -15,7 +15,7 @@ public class SelectionSort extends AlgorithmBase {
             return new int[]{};
         }
 
-        int indexOfTheLowestNumber, tmpSwappedValue;
+        int indexOfTheLowestNumber, tmpSwappedValue;//NOSONAR
 
         for (int i = 0; i < inputArray.length; i++) {
             indexOfTheLowestNumber = i;
@@ -42,5 +42,18 @@ public class SelectionSort extends AlgorithmBase {
     @Override
     public AlgorithmType getType() {
         return AlgorithmType.SELECTION_SORT;
+    }
+
+    @Override
+    public AlgorithmMetadata getMetadata() {
+        return new AlgorithmMetadata(
+                "Selection&#160;sort",
+                AlgorithmComplexityConstant.O_N_2,
+                AlgorithmComplexityConstant.O_N_2,
+                AlgorithmComplexityConstant.O_N_2,
+                AlgorithmComplexityConstant.O_1,
+                "no",
+                "yes"
+        );
     }
 }
